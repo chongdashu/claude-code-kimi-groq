@@ -1,28 +1,67 @@
 # Use Kimi K2 on Claude Code through Groq
 
-Run the Groq <> Anthropic API proxy:
+This project builds upon the original repository at https://github.com/fakerybakery/claude-code-kimi-k2 (formerly `claude-code-kimi-groq`), enhancing it with additional features and improvements.
+
+A proxy server that enables Claude Code to use Kimi K2 (Moonshot AI's model) through Groq's API by converting between Anthropic and OpenAI API formats.
+
+## Quick Start
+
+### Installation
 
 ```bash
+# Install dependencies
+pip install -e .
+
+# Or with uv
+uv run proxy.py
+```
+
+### Running the Proxy
+
+```bash
+# Using uv (recommended)
+uv run proxy.py
+
+# Using python
 python proxy.py
+
+# Or using the CLI (after installation)
+proxy
 ```
 
-Set the Anthropic Base URL:
+### Configuration
 
-```
+Set environment variables before running Claude Code:
+
+```bash
 export ANTHROPIC_BASE_URL=http://localhost:7187
-```
-
-If you're not already authenticated with Anthropic you may need to run:
-
-```
 export ANTHROPIC_API_KEY=NOT_NEEDED
+# Ensure GROQ_API_KEY is set in your environment or .env file
 ```
 
-Run Claude Code with the Groq API key:
+Then run Claude Code:
 
 ```bash
 claude
 ```
+
+### Alternate Run Methods
+
+```bash
+# Using the shell scripts
+./run.sh
+# or
+./run-claude.sh  # sets environment variables automatically
+```
+
+## Architecture
+
+The proxy handles:
+- **Message Format Conversion**: Translates between Anthropic and OpenAI message formats
+- **Tool Handling**: Converts tool schemas and function calls between API formats
+- **Response Mapping**: Returns responses in Anthropic's expected format with proper message IDs and token usage
+
+The server runs on port 7187 by default and uses the Kimi K2 model through Groq's API.
 
 ## If you use this:
 
